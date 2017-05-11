@@ -28,9 +28,15 @@ int main(void)
 	TWIInit(); //Initialize the I2C
 	BMP180_Init(); //Initialize the BMP180 sensor
 	DHT_Init(); //Initialize the DHT22
+
+	//Show a welcome message while waiting
+	LCD_SetCursor(1, 2); //Set the cursor to the start of the screen and first row
+	LCD_WriteStr("Meteo Station v1.0"); //Write the required string on the screen
+
 	_delay_ms(2000); //Delay for the initialization of the components
 	
 	//Write the fixed strings to the LCD once
+	LCD_ClearDisplay();
 	LCD_SetCursor(0, 1); //Set the cursor to the start of the screen and first row
 	LCD_WriteStr("Tempr.: "); //Write the required string on the screen
 	LCD_SetCursor(0, 2); //Set the cursor to the start of the screen and second row
@@ -59,28 +65,28 @@ int main(void)
 
 		//Show the temperature on the LCD
 		LCD_SetCursor(8, 1);
-		LCD_WriteStr("         ");
+		LCD_WriteStr("            ");
 		LCD_SetCursor(8, 1);
 		sprintf(conversion, "%.1f C", temp/10.0); //Divide by 10 because the read temperature is multiplied by 10
 		LCD_WriteStr(conversion);
 		
 		//Show the calculated dew point on the LCD
 		LCD_SetCursor(8, 2);
-		LCD_WriteStr("         ");
+		LCD_WriteStr("            ");
 		LCD_SetCursor(8, 2);
 		sprintf(conversion, "%.1f C", dew_p);
 		LCD_WriteStr(conversion);
 		
 		//Show the humidity
 		LCD_SetCursor(8, 3);
-		LCD_WriteStr("          ");
+		LCD_WriteStr("            ");
 		LCD_SetCursor(8, 3);
 		sprintf(conversion, "%.1f%%", humidity/10.0); //Divide by 10 because the read humidity from the sensor is multiplied by 10
 		LCD_WriteStr(conversion);
 		
 		//Show the pressure
 		LCD_SetCursor(8, 4);
-		LCD_WriteStr("          ");
+		LCD_WriteStr("            ");
 		LCD_SetCursor(8, 4);
 		sprintf(conversion, "%.1f hPa", press);
 		LCD_WriteStr(conversion);
